@@ -2,888 +2,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lowndes County Schools Transportation</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;600;800&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --navy: #0a1628;
-      --blue: #1a3a6e;
-      --mid-blue: #2a5298;
-      --light-blue: #4a90d9;
-      --gold: #c9a227;
-      --gold-light: #f0c94a;
-      --white: #f0f4ff;
-      --muted: #8aaccc;
-      --card: rgba(20, 40, 80, 0.6);
-      --border: rgba(74, 144, 217, 0.25);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Exo 2', sans-serif;
-      background: var(--navy);
-      color: var(--white);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 20% 50%, rgba(26,58,110,0.6) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 20%, rgba(42,82,152,0.4) 0%, transparent 50%),
-        radial-gradient(ellipse at 60% 80%, rgba(10,22,40,0.8) 0%, transparent 60%);
-      z-index: 0;
-      animation: bgpulse 8s ease-in-out infinite alternate;
-    }
-
-    @keyframes bgpulse {
-      from { opacity: 0.8; }
-      to   { opacity: 1; }
-    }
-
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(74,144,217,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(74,144,217,0.05) 1px, transparent 1px);
-      background-size: 40px 40px;
-      z-index: 0;
-    }
-
-    header, .ticker, section, footer {
-      position: relative;
-      z-index: 1;
-    }
-
-    header {
-      background: rgba(10,22,40,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 24px;
-      z-index: 10;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 0;
-      gap: 20px;
-    }
-
-    .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .logo-ring {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      border: 2px solid var(--gold);
-      padding: 3px;
-      flex-shrink: 0;
-      animation: goldglow 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes goldglow {
-      from { box-shadow: 0 0 15px rgba(201,162,39,0.3), inset 0 0 8px rgba(201,162,39,0.1); }
-      to   { box-shadow: 0 0 30px rgba(201,162,39,0.6), inset 0 0 15px rgba(201,162,39,0.2); }
-    }
-
-    .logo-ring img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .logo-text h1 {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.35rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      line-height: 1.1;
-    }
-
-    .logo-text .tagline {
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      color: var(--gold);
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    .est {
-      display: inline-block;
-      margin-top: 4px;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 3px 10px;
-      border-radius: 3px;
-    }
-
-    nav {
-      display: flex;
-      gap: 6px;
-    }
-
-    nav a {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--muted);
-      padding: 8px 14px;
-      border-radius: 4px;
-      border: 1px solid transparent;
-      transition: all 0.2s;
-    }
-
-    nav a:hover {
-      color: var(--white);
-      border-color: var(--border);
-      background: rgba(74,144,217,0.1);
-    }
-
-    .ticker {
-      background: linear-gradient(90deg, rgba(201,162,39,0.12), rgba(74,144,217,0.12));
-      border-top: 1px solid rgba(201,162,39,0.2);
-      border-bottom: 1px solid rgba(201,162,39,0.2);
-      padding: 10px 0;
-      overflow: hidden;
-    }
-
-    .ticker-track {
-      display: flex;
-      white-space: nowrap;
-      animation: scrollticker 30s linear infinite;
-    }
-
-    .ticker-track span {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      padding: 0 40px;
-    }
-
-    .ticker-track .divider {
-      color: var(--mid-blue);
-      font-size: 0.6rem;
-    }
-
-    @keyframes scrollticker {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    .hero {
-      padding: 80px 24px 60px;
-      text-align: center;
-    }
-
-    .hero-eyebrow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 16px;
-    }
-
-    .hero-eyebrow::before,
-    .hero-eyebrow::after {
-      content: '';
-      width: 40px;
-      height: 1px;
-      background: var(--gold);
-      opacity: 0.5;
-    }
-
-    .hero h2 {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: clamp(2.2rem, 5vw, 3.5rem);
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      line-height: 1.05;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, var(--white) 0%, var(--light-blue) 60%, var(--gold-light) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero p {
-      color: var(--muted);
-      font-size: 1rem;
-      max-width: 520px;
-      margin: 0 auto;
-      line-height: 1.65;
-    }
-
-    .quick-links {
-      padding: 0 24px 60px;
-    }
-
-    .card-grid {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-    }
-
-    .qcard {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 28px 24px;
-      text-decoration: none;
-      color: var(--white);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      text-align: center;
-      backdrop-filter: blur(8px);
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .qcard::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .qcard:hover {
-      border-color: var(--gold);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 20px rgba(201,162,39,0.15);
-    }
-
-    .qcard:hover::before {
-      opacity: 1;
-    }
-
-    .qcard.discord:hover {
-      border-color: #7289da;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 20px rgba(114,137,218,0.2);
-    }
-
-    .qcard.discord::before {
-      background: linear-gradient(90deg, transparent, #7289da, transparent);
-    }
-
-    .qcard-icon {
-      font-size: 2rem;
-      width: 56px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: rgba(74,144,217,0.15);
-      border: 1px solid var(--border);
-    }
-
-    .qcard.discord .qcard-icon {
-      background: rgba(114,137,218,0.15);
-      border-color: rgba(114,137,218,0.3);
-    }
-
-    .qcard-title {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .qcard-desc {
-      font-size: 0.8rem;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    .sec-head {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-
-    .sec-head .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--gold);
-      flex-shrink: 0;
-    }
-
-    .sec-head h3 {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .sec-head .rule {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, var(--border), transparent);
-    }
-
-    .announcements {
-      padding: 0 24px 60px;
-    }
-
-    .ann-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .ann-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    @media (max-width: 640px) {
-      .ann-grid { grid-template-columns: 1fr; }
-      nav { display: none; }
-    }
-
-    .ann-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 24px;
-      backdrop-filter: blur(8px);
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.3s;
-    }
-
-    .ann-card:hover {
-      border-color: rgba(74,144,217,0.5);
-    }
-
-    .ann-card::after {
-      content: '';
-      position: absolute;
-      top: 0; right: 0;
-      width: 0; height: 0;
-      border-style: solid;
-      border-width: 0 28px 28px 0;
-      border-color: transparent var(--gold) transparent transparent;
-      opacity: 0.15;
-    }
-
-    .ann-badge {
-      display: inline-block;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 2px;
-      margin-bottom: 12px;
-    }
-
-    .ann-badge.warn {
-      background: rgba(201,162,39,0.15);
-      color: var(--gold);
-      border: 1px solid rgba(201,162,39,0.3);
-    }
-
-    .ann-badge.info {
-      background: rgba(74,144,217,0.15);
-      color: var(--light-blue);
-      border: 1px solid rgba(74,144,217,0.3);
-    }
-
-    .ann-title {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      margin-bottom: 8px;
-    }
-
-    .ann-body {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .ann-date {
-      margin-top: 14px;
-      font-size: 0.72rem;
-      color: rgba(138,172,204,0.5);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .cal-section {
-      padding: 0 24px 60px;
-    }
-
-    .cal-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .cal-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 40px;
-      backdrop-filter: blur(8px);
-      text-align: center;
-    }
-
-    .cal-box .cal-emoji {
-      font-size: 3rem;
-      margin-bottom: 16px;
-      opacity: 0.7;
-    }
-
-    .cal-box h4 {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .cal-box .cal-note {
-      color: var(--muted);
-      font-size: 0.85rem;
-      margin-bottom: 28px;
-    }
-
-    .mini-cal {
-      max-width: 340px;
-      margin: 0 auto;
-    }
-
-    .cal-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .cal-nav span {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    .cal-nav button {
-      background: rgba(74,144,217,0.1);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      width: 30px;
-      height: 30px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-
-    .cal-nav button:hover {
-      color: var(--white);
-      background: rgba(74,144,217,0.2);
-    }
-
-    .cal-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 4px;
-      text-align: center;
-    }
-
-    .day-name {
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      text-transform: uppercase;
-      padding: 4px 0;
-    }
-
-    .day {
-      font-size: 0.82rem;
-      padding: 7px 4px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.2s;
-      color: var(--muted);
-      border: 1px solid transparent;
-    }
-
-    .day:hover {
-      background: rgba(74,144,217,0.15);
-      color: var(--white);
-      border-color: var(--border);
-    }
-
-    .day.today {
-      background: rgba(201,162,39,0.15);
-      color: var(--gold);
-      border-color: rgba(201,162,39,0.3);
-      font-weight: 700;
-    }
-
-    .day.has-event {
-      color: var(--light-blue);
-      position: relative;
-    }
-
-    .day.has-event::after {
-      content: '';
-      position: absolute;
-      bottom: 2px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--gold);
-    }
-
-    .day.blank {
-      cursor: default;
-      pointer-events: none;
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 30px 24px;
-      text-align: center;
-    }
-
-    footer p {
-      color: var(--muted);
-      font-size: 0.8rem;
-      letter-spacing: 0.05em;
-    }
-
-    footer a {
-      color: var(--light-blue);
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    .gold { color: var(--gold); }
-
-    .fade-up {
-      opacity: 0;
-      animation: fadeup 0.6s ease forwards;
-    }
-
-    .fade-up:nth-child(1) { animation-delay: 0.05s; }
-    .fade-up:nth-child(2) { animation-delay: 0.15s; }
-    .fade-up:nth-child(3) { animation-delay: 0.25s; }
-    .fade-up:nth-child(4) { animation-delay: 0.35s; }
-
-    @keyframes fadeup {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Unavailable - Lemonade Co.</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f9f9fb;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            max-width: 550px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            text-align: center;
+            border-top: 6px solid #f6e05e;
+        }
+
+        .top-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 24px;
+            border-radius: 6px;
+        }
+
+        .icon-container {
+            width: 64px;
+            height: 64px;
+            background-color: #fefcbf;
+            color: #b7791f;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px auto;
+        }
+
+        .icon {
+            width: 32px;
+            height: 32px;
+            fill: currentColor;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 16px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #4a5568;
+            margin-bottom: 24px;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #e2e8f0;
+            margin-bottom: 24px;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: #a0aec0;
+        }
+
+        a {
+            color: #4a5568;
+            text-decoration: underline;
+        }
+
+        a:hover {
+            color: #1a202c;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <div class="logo-area">
-      <div class="logo-ring">
-        <img src="https://i.ibb.co/nsGfFjPm/EST-In-2026-2-1-removebg-preview.png" alt="LCST logo">
-      </div>
-      <div class="logo-text">
-        <h1>Lowndes County<br>Schools Transportation</h1>
-        <div class="tagline">Official Portal</div>
-        <div class="est">Est. 2020</div>
-      </div>
-    </div>
-    <nav>
-      <a href="#announcements">Announcements</a>
-      <a href="#resources">Resources</a>
-      <a href="#calendar">Calendar</a>
-    </nav>
-  </div>
-</header>
+<div class="container">
+    <!-- Provided Image at the Top -->
+    <img src="https://i.ibb.co/yBX4QMXh/Gemini-Generated-Image-hh4gqphh4gqphh4g.png" alt="Notice" class="top-image">
 
-<div class="ticker">
-  <div class="ticker-track">
-    <span>⭐ Lowndes County Schools Transportation</span>
-    <span class="divider">◆</span>
-    <span>Keeping kids moving since 2020</span>
-    <span class="divider">◆</span>
-    <span>Hop on Discord for the latest updates</span>
-    <span class="divider">◆</span>
-    <span>Check the bus sheet for your stop</span>
-    <span class="divider">◆</span>
-    <span>⭐ Lowndes County Schools Transportation</span>
-    <span class="divider">◆</span>
-    <span>Keeping kids moving since 2020</span>
-    <span class="divider">◆</span>
-    <span>Hop on Discord for the latest updates</span>
-    <span class="divider">◆</span>
-    <span>Check the bus sheet for your stop</span>
-    <span class="divider">◆</span>
-  </div>
+    <div class="icon-container">
+        <!-- Warning/Shield Icon -->
+        <svg class="icon" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+        </svg>
+    </div>
+    
+    <h1>Website Unavailable</h1>
+    
+    <p>This website has been removed by <strong>Lemonade Co.</strong> for violating our Terms of Service and hosting guidelines. We take the safety and integrity of our platform seriously, and sites found in breach of our rules are suspended immediately.</p>
+    <p>Site Reviewer & Remover: Samual Janeson | CTO</p>
+    
+    <div class="divider"></div>
+    
+    <p class="footer-text">Hosted by Lemonade Co. Free Web Hosting.</p>
 </div>
 
-<section class="hero">
-  <div class="hero-eyebrow">Lowndes County · Transportation</div>
-  <h2>Routes. Updates.<br>All in one spot.</h2>
-  <p>
-    Hey, welcome! This is the main hub for everything transportation-related
-    at Lowndes County Schools. Bus routes, announcements, schedule changes —
-    it all lives here.
-  </p>
-</section>
-
-<section class="quick-links" id="resources">
-  <div class="card-grid">
-
-    <a href="#" class="qcard fade-up" id="bus-sheet-btn">
-      <div class="qcard-icon">🚌</div>
-      <div class="qcard-title">Bus Sheet</div>
-      <div class="qcard-desc">Find your route, pickup times, and stop locations. We try to keep this updated whenever things change.</div>
-    </a>
-
-    <a href="https://discord.gg/T9c3hFpkYt" target="_blank" class="qcard discord fade-up">
-      <div class="qcard-icon">💬</div>
-      <div class="qcard-title">Discord</div>
-      <div class="qcard-desc">This is where we post delays, last-minute changes, and chat with parents and drivers. Definitely worth joining.</div>
-    </a>
-
-    <a href="#announcements" class="qcard fade-up">
-      <div class="qcard-icon">📢</div>
-      <div class="qcard-title">Announcements</div>
-      <div class="qcard-desc">Scroll down for the latest notices from our team. We post here whenever something important comes up.</div>
-    </a>
-
-    <a href="#calendar" class="qcard fade-up">
-      <div class="qcard-icon">📅</div>
-      <div class="qcard-title">Calendar</div>
-      <div class="qcard-desc">Upcoming events and schedule changes will show up here once we get it fully set up.</div>
-    </a>
-
-  </div>
-</section>
-
-<section class="announcements" id="announcements">
-  <div class="ann-inner">
-    <div class="sec-head">
-      <div class="dot"></div>
-      <h3>Announcements</h3>
-      <div class="rule"></div>
-    </div>
-    <div class="ann-grid">
-
-      <div class="ann-card">
-        <div class="ann-badge warn">⚠ Heads up</div>
-        <div class="ann-title">Welcome to the new site!</div>
-        <div class="ann-body">
-          We finally have a proper home base. This is where you'll find everything
-          — route info, updates, the Discord link, and the calendar once it's ready.
-          Bookmark this page so you don't have to hunt it down later.
-        </div>
-        <div class="ann-date">May 2025</div>
-      </div>
-
-      <div class="ann-card">
-        <div class="ann-badge info">💬 Discord</div>
-        <div class="ann-title">Join the Discord server</div>
-        <div class="ann-body">
-          If you're not in the Discord yet, that's the best place to get real-time
-          updates. We use it for delay notices, cancellations, and general questions.
-          Way faster than waiting for an email.
-        </div>
-        <div class="ann-date">May 2025</div>
-      </div>
-
-      <div class="ann-card">
-        <div class="ann-badge info">🚌 Routes</div>
-        <div class="ann-title">Bus sheet is live</div>
-        <div class="ann-body">
-          The current bus sheet is up and linked above. If your stop looks wrong
-          or you're not on there at all, just reach out through Discord and we'll
-          get it sorted.
-        </div>
-        <div class="ann-date">May 2025</div>
-      </div>
-
-      <div class="ann-card">
-        <div class="ann-badge warn">📅 Soon</div>
-        <div class="ann-title">Calendar is coming</div>
-        <div class="ann-body">
-          We're still putting the calendar together — it'll have school dates,
-          route change days, holidays, and anything else that affects pickup times.
-          It'll be ready soon, check back!
-        </div>
-        <div class="ann-date">May 2025</div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="cal-section" id="calendar">
-  <div class="cal-inner">
-    <div class="sec-head">
-      <div class="dot"></div>
-      <h3>Calendar</h3>
-      <div class="rule"></div>
-    </div>
-    <div class="cal-box">
-      <div class="cal-emoji">📅</div>
-      <h4>What's coming up</h4>
-      <p class="cal-note">
-        We'll add events, schedule changes, and holidays here as they get confirmed.
-        Dots on dates mean something's happening that day — hover to see what.
-      </p>
-      <div class="mini-cal">
-        <div class="cal-nav">
-          <button onclick="prevMonth()">&#8249;</button>
-          <span id="cal-label"></span>
-          <button onclick="nextMonth()">&#8250;</button>
-        </div>
-        <div class="cal-grid" id="cal-grid"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <p>© 2020-26 <span class="gold">Lowndes County Schools Transportation</span> — Est. 2020</p>
-  <p style="margin-top: 8px;">Got a question? Find us on <a href="https://discord.gg/T9c3hFpkYt" target="_blank">Discord</a></p>
-  <p style="margin-top: 8px;">Made with love 💙 by Lemonade Co. </p>
-</footer>
-
-<script>
-  let current = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
-
-  const events = {
-    '2025-5-15': 'Route update',
-    '2025-5-22': 'Staff meeting',
-  };
-
-  const months = [
-    'January','February','March','April','May','June',
-    'July','August','September','October','November','December'
-  ];
-
-  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-
-  function buildCal() {
-    const grid  = document.getElementById('cal-grid');
-    const label = document.getElementById('cal-label');
-    const y = current.getFullYear();
-    const m = current.getMonth();
-    const today = new Date();
-
-    label.textContent = months[m] + ' ' + y;
-    grid.innerHTML = '';
-
-    days.forEach(function(d) {
-      const el = document.createElement('div');
-      el.className = 'day-name';
-      el.textContent = d;
-      grid.appendChild(el);
-    });
-
-    const startDay = new Date(y, m, 1).getDay();
-    for (let i = 0; i < startDay; i++) {
-      const blank = document.createElement('div');
-      blank.className = 'day blank';
-      grid.appendChild(blank);
-    }
-
-    const total = new Date(y, m + 1, 0).getDate();
-    for (let d = 1; d <= total; d++) {
-      const el = document.createElement('div');
-      el.className = 'day';
-      el.textContent = d;
-
-      const key = y + '-' + (m + 1) + '-' + d;
-      if (events[key]) {
-        el.classList.add('has-event');
-        el.title = events[key];
-      }
-
-      if (y === today.getFullYear() && m === today.getMonth() && d === today.getDate()) {
-        el.classList.add('today');
-      }
-
-      grid.appendChild(el);
-    }
-  }
-
-  function prevMonth() {
-    current.setMonth(current.getMonth() - 1);
-    buildCal();
-  }
-
-  function nextMonth() {
-    current.setMonth(current.getMonth() + 1);
-    buildCal();
-  }
-
-  buildCal();
-</script>
 </body>
 </html>
